@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { View, Button, Text, Image, StyleSheet } from 'react-native';
+import { View, Button, Text, Image, StyleSheet, Pressable } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CreateEmployee from './createEmployee';
 import LoadEmployee from './loadEmployees';
-import UpdateEmployee from './updateEmployee';
+import Employee from './employee';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +20,7 @@ function HomeScreen({ navigation, route }) {
         title="Upload Employees"
         onPress={() => navigation.navigate('LoadEmployee')}
       />
+      
       <View style={{ marginBottom: 20 }} /> 
       <Button
         title="Create New Employee"
@@ -65,8 +66,7 @@ function App() {
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CreateEmployee" component={CreateEmployee} />
-        <Stack.Screen name="LoadEmployee" component={LoadEmployee} />
-        <Stack.Screen name="UpdateEmployee" component={UpdateEmployee} />
+        <Stack.Screen name="LoadEmployee" component={LoadEmployee} />  
       </Stack.Navigator>
     </NavigationContainer>
   );

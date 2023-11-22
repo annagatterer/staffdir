@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TextInput, Button, Image} from 'react-native';
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
+
 
 
     const CreateEmployee = ({ navigation }) => {
@@ -14,21 +15,37 @@ import React, { useState } from 'react';
     const [country,setCountry] = useState('');
     
  
-      const recordEmployee = () => {
-        const newEmployee = {
-          id,
-          name,
-          departmentName,
-          phone,
-          street,
-          city,
-          state,
-          zip,
-          country,
-        };
-    
-        navigation.navigate('Home', { newEmployee });
+    const recordEmployee = () => {
+      const newEmployee = {
+        id,
+        name,
+        departmentName,
+        phone,
+        street,
+        city,
+        state,
+        zip,
+        country,
       };
+  
+      fetch('http://localhost:3000/employees', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newEmployee),
+      })
+        .then(response => response.json())
+        .then(responseData => {
+          console.log('Employee created successfully:', responseData)
+        })
+        .catch(error => {
+          console.error('Error creating employee:', error);
+        });
+    };
+
+        //navigation.navigate('Home', { newEmployee });
+      
 
     return (
       <View style={styles.container}>
@@ -92,9 +109,9 @@ import React, { useState } from 'react';
     <Button title="Record Employee" onPress={recordEmployee} />
     </View>
   );
-};
 
 
+    };
 
     const styles = StyleSheet.create({
     container: {
@@ -130,6 +147,12 @@ import React, { useState } from 'react';
       height: 154,
       marginBottom: 5
     },
+    button:{
+      border:'1px solid black',
+      backgroundColor:'moroon',
+      padding:5,
+      borderRadius:5,
+    }
   });
 
   export default CreateEmployee; 
