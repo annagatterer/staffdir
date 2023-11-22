@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Pressable, TextInput, Button } from 'react-native';
 
-
-
 const LoadEmployee = ({ navigation }) => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [editedEmployee, setEditedEmployee] = useState(null);
-  const[newEmployee,setNewEmployee]=useState(null);
-  
+  const [newEmployee, setNewEmployee] = useState(null);
+
   const uri = 'http://localhost:3000/employees';
 
   const fetchEmployees = () => {
@@ -28,9 +26,7 @@ const LoadEmployee = ({ navigation }) => {
     setNewEmployee(employee);
   };
 
-
   const remove = (id) => {
-   
     fetch(`${uri}/${id}`, { method: 'DELETE' })
       .then(() => {
         fetchEmployees();
@@ -40,13 +36,12 @@ const LoadEmployee = ({ navigation }) => {
   };
 
   const saveChanges = () => {
-    
     fetch(`${uri}/${editedEmployee.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(editedEmployeeemployees),
+      body: JSON.stringify(editedEmployee),
     })
       .then(() => {
         fetchEmployees();
@@ -55,6 +50,8 @@ const LoadEmployee = ({ navigation }) => {
       .catch(e => console.error(e.message));
   };
 
+
+  
   return (
     <View style={styles.container}>
       <Image source={require('./assets/logoRoi_resized.png')} style={styles.logo} />
@@ -75,13 +72,13 @@ const LoadEmployee = ({ navigation }) => {
             style={styles.input}
             value={editedEmployee.departmentId}
             onChangeText={(number) => setEditedEmployee({ ...editedEmployee, departmentId: number })}
-            placeholder="Department"
+            placeholder="Department Number"
           />
           <TextInput
             style={styles.input}
             value={editedEmployee.departmentName}
             onChangeText={(text) => setEditedEmployee({ ...editedEmployee, departmentName: text })}
-            placeholder="Department"
+            placeholder="Department Name"
           />
           <TextInput
             style={styles.input}
@@ -91,34 +88,49 @@ const LoadEmployee = ({ navigation }) => {
           />
           
           <TextInput
-            style={styles.input}
-            value={editedEmployee.address.street}
-            onChangeText={(text) => setEditedEmployee({ ...editedEmployee, street: text })}
-            placeholder="Street"
-          />
+         style={styles.input}
+         value={editedEmployee.address.street}
+         onChangeText={(text) => setEditedEmployee({
+         ...editedEmployee,
+          address: {  ...editedEmployee.address, street: text,},
+            })}
+          placeholder="Street"
+         />
              <TextInput
             style={styles.input}
             value={editedEmployee.address.city}
-            onChangeText={(text) => setEditedEmployee({ ...editedEmployee, city: text })}
+            onChangeText={(text) => setEditedEmployee({
+              ...editedEmployee,
+               address: {  ...editedEmployee.address, city: text,},
+                 })}
             placeholder="City"
           />
              <TextInput
             style={styles.input}
             value={editedEmployee.address.zip}
-            onChangeText={(text) => setEditedEmployee({ ...editedEmployee, zip: text })}
-            placeholder="Street"
+            onChangeText={(text) => setEditedEmployee({
+              ...editedEmployee,
+               address: {  ...editedEmployee.address, zip: text,},
+                 })}
+            placeholder="Postcode"
           />
              <TextInput
             style={styles.input}
             value={editedEmployee.address.state}
-            onChangeText={(text) => setEditedEmployee({ ...editedEmployee, state: text })}
+            onChangeText={(text) => setEditedEmployee({
+              ...editedEmployee,
+               address: {  ...editedEmployee.address, state: text,},
+                 })}
             placeholder="State"
           />
             <TextInput
             style={styles.input}
             value={editedEmployee.address.country}
-            onChangeText={(text) => setEditedEmployee({ ...editedEmployee, country: text })}
-            placeholder="State"
+            onChangeText={(text) => setEditedEmployee({
+              ...editedEmployee,
+               address: {  ...editedEmployee.address, country: text,},
+                 })}
+            placeholder="Country"
           />
           <Button title="Save Changes" onPress={saveChanges} />        
         </View>
