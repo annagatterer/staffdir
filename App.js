@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CreateEmployee from './createEmployee';
 import LoadEmployee from './loadEmployees';
-import Employee from './employee';
+//import Employee from './employee';
 
 const Stack = createStackNavigator();
 
@@ -27,12 +27,7 @@ function HomeScreen({ navigation, route }) {
         onPress={() => navigation.navigate('CreateEmployee')}
       />
       <View style={{ marginBottom: 20 }} /> 
-        <Button
-        title="Update Employees"
-        onPress={() => navigation.navigate('UpdateEmployee')}
-      />
-      
-
+     
       <Text>
         {newEmployee ? (
           <View style={{ borderWidth: 1, borderColor: 'black', margin: 10, padding: 10 }}>

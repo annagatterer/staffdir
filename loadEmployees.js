@@ -7,9 +7,12 @@ const LoadEmployee = ({ navigation }) => {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [editedEmployee, setEditedEmployee] = useState(null);
+  const[newEmployee,setNewEmployee]=useState(null);
+  
+  const uri = 'http://localhost:3000/employees';
 
   const fetchEmployees = () => {
-    fetch('http://localhost:3000/employees')
+    fetch(uri)
       .then(response => response.json())
       .then(json => setEmployees(json))
       .catch(e => console.error(e.message));
@@ -21,13 +24,13 @@ const LoadEmployee = ({ navigation }) => {
 
   const handlePress = (employee) => {
     setSelectedEmployee(employee);
-    setEditedEmployee({ ...employee });
+    setEditedEmployee(employee);
+    setNewEmployee(employee);
   };
 
-  
 
   const remove = (id) => {
-    const uri = 'http://localhost:3000/employees'; // Define the correct endpoint
+   
     fetch(`${uri}/${id}`, { method: 'DELETE' })
       .then(() => {
         fetchEmployees();
@@ -37,13 +40,13 @@ const LoadEmployee = ({ navigation }) => {
   };
 
   const saveChanges = () => {
-    const uri = 'http://localhost:3000/employees'; 
+    
     fetch(`${uri}/${editedEmployee.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(editedEmployee),
+      body: JSON.stringify(editedEmployeeemployees),
     })
       .then(() => {
         fetchEmployees();
@@ -135,6 +138,8 @@ const LoadEmployee = ({ navigation }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {

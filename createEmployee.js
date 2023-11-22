@@ -38,14 +38,13 @@ import React, { useState ,useEffect} from 'react';
         .then(response => response.json())
         .then(responseData => {
           console.log('Employee created successfully:', responseData)
+          
         })
         .catch(error => {
           console.error('Error creating employee:', error);
         });
+        navigation.navigate('LoadEmployee', { newEmployee});
     };
-
-        //navigation.navigate('Home', { newEmployee });
-      
 
     return (
       <View style={styles.container}>
@@ -109,9 +108,7 @@ import React, { useState ,useEffect} from 'react';
     <Button title="Record Employee" onPress={recordEmployee} />
     </View>
   );
-
-
-    };
+  };
 
     const styles = StyleSheet.create({
     container: {
